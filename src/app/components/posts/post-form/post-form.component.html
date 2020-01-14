@@ -1,34 +1,36 @@
-<a [routerLink]="[ '/' ]">Posts List</a>
+<header>
+    <a [routerLink]="[ '/' ]">Back to Posts List</a>
+</header>
 
 <form [formGroup]="postForm">
     <h2 *ngIf="!updatingPost">Add Post</h2>
     <h2 *ngIf="updatingPost">Edit Post</h2>
 
-    <div>
-        <input type="text" name="title" placeholder="title" formControlName="title" autocomplete="current-title">
-        <div *ngIf="postForm.get('title').invalid && postForm.get('title').touched">
+    <div class="form__group">
+        <input type="text" formControlName="title" name="title" placeholder="title" autocomplete="current-title">
+
+        <div class="form__validation" *ngIf="postForm.get('title').invalid && postForm.get('title').touched">
             <p *ngIf="postForm.get('title').errors.required">Title is not be empty!</p>
         </div>
     </div>
 
-    <div>
+    <div class="form__preview-image">
         <img [src]="previewImageURL" width="300px"  (click)="fileUploader.click()">
     </div>
 
-    <div>
+    <div class="form__group">
         <label>Select file to upload</label>
-        <input type="file" accept="image/*" #fileUploader formControlName="imageUrl" (change)="onImgChange($event)">
+        <input type="file" formControlName="imageUrl" accept="image/*" #fileUploader (change)="onImgChange($event)">
     </div>
 
-    <div>
+    <div class="form__group">
         <textarea name="content" formControlName="content" cols="30" rows="10" placeholder="content" autocomplete="current-content"></textarea>
-        <div *ngIf="postForm.get('content').invalid && postForm.get('content').touched">
+
+        <div class="form__validation" *ngIf="postForm.get('content').invalid && postForm.get('content').touched">
             <p *ngIf="postForm.get('content').errors.required">Content is not be empty!</p>
         </div>
     </div>
 
-    <div>
         <button [disabled]="postForm.invalid" *ngIf="!updatingPost" (click)="addNewPost(postForm.value)">Add New Post</button>
         <button [disabled]="postForm.invalid" *ngIf="updatingPost" (click)="editPost(postForm.value)">Save changes</button>
-    </div>
 </form>

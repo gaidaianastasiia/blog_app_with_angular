@@ -10,22 +10,21 @@ import {User} from '../../../models/user';
     styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
-    loginForm: FormGroup;
+    form: FormGroup;
 
     constructor(
         private authService: AuthService,
         private router: Router
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
-        this.loginForm = new FormGroup({
+        this.form = new FormGroup({
             email: new FormControl('', [Validators.email, Validators.required]),
             password: new FormControl('', [Validators.minLength(6), Validators.required])
         });
     }
 
-    login(formData: FormData) {
+    signIn(formData: FormData) {
         const user = new User(formData['email'], formData['password']);
 
         this.authService.signIn(user)

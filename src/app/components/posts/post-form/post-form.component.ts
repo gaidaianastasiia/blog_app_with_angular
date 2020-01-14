@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {PostService} from '../../../services/post.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
 import {DEFAULT_PREVIEW_IMAGE_URL} from '../../../constants/url';
 
 @Component({
@@ -21,8 +20,7 @@ export class PostFormComponent implements OnInit, OnDestroy {
         private postService: PostService,
         private router: Router,
         private route: ActivatedRoute
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         this.postForm = new FormGroup({

@@ -1,8 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AngularFireStorage} from '@angular/fire/storage';
 import {PostService} from '../../../services/post.service';
-import {Subscription} from 'rxjs';
 import {AuthService} from '../../../services/auth.service';
 
 @Component({
@@ -12,8 +10,8 @@ import {AuthService} from '../../../services/auth.service';
 })
 export class PostComponent implements OnInit, OnDestroy {
     post: any;
-    isAdmin: boolean;
     postDataSubscription: Subscription;
+    isAdmin: boolean;
     isAdminSubscription: Subscription;
 
     constructor(
@@ -21,20 +19,14 @@ export class PostComponent implements OnInit, OnDestroy {
         private router: Router,
         private postService: PostService,
         private authService: AuthService,
-        private storage: AngularFireStorage,
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         this.postDataSubscription = this.route.queryParams.subscribe(post => this.post = post);
-
-        this.isAdminSubscription = this.authService.isAdmin$.subscribe(isAdmin => {
-            this.isAdmin = isAdmin;
-        });
-
+        this.isAdminSubscription = this.authService.isAdmin$.subscribe(isAdmin => this.isAdmin = isAdmin);
     }
 
-    editPost(post): void {
+    onEditBtnClick(post): void {
         this.router.navigate(['./edit', ''],
             {
                 queryParams: post

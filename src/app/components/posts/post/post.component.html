@@ -1,12 +1,18 @@
-<a [routerLink]="[ '/' ]">Posts List</a>
+<header>
+    <a [routerLink]="[ '/' ]">Back to Posts List</a>
+</header>
 
-<div>
-    <button *ngIf="isAdmin" (click)="editPost(post)">Edit Post</button>
-    <button *ngIf="isAdmin" (click)="deletePost(post.imageStorageName, post.postKey)">Delete Post</button>
-</div>
+<main>
+    <section class="post-details">
+        <div class="post-details__controls">
+            <button *ngIf="isAdmin" (click)="onEditBtnClick(post)">Edit Post</button>
+            <button *ngIf="isAdmin" (click)="deletePost(post.imageStorageName, post.postKey)">Delete Post</button>
+        </div>
 
-<article>
-    <h3>{{post.title}}</h3>
-    <img [src]="post.imageUrl" alt="post's image" width="300">
-    <p>{{post.content}}</p>
-</article>
+        <article class="post">
+            <h3 class="post__title">{{post.title}}</h3>
+            <img class="post__img" [src]="post.imageUrl" alt="post's image" width="300">
+            <p class="post__text">{{post.content}}</p>
+        </article>
+    </section>
+</main>

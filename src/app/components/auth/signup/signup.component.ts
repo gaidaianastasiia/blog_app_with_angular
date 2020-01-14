@@ -15,8 +15,7 @@ export class SignupComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private router: Router
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         this.form = new FormGroup({
@@ -29,12 +28,11 @@ export class SignupComponent implements OnInit {
         const newUser = new User(formData['email'], formData['password']);
 
         this.authService.signUp(newUser)
-            .then(value =>{
+            .then(value => {
                 this.router.navigate(['/'])
             })
             .catch(err => {
                 window.alert(err.message);
             });
-
     }
 }

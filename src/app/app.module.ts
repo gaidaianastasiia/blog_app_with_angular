@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 
 import {environment} from '../environments/environment';
@@ -18,13 +17,11 @@ import {AppRoutingModule} from './app-routing.module';
     ],
     imports: [
         BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
         AngularFirestoreModule,
-        AngularFireStorageModule,
+        AngularFireStorageModule
     ],
     providers: [],
     bootstrap: [AppComponent]

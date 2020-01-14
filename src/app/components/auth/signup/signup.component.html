@@ -1,17 +1,27 @@
 <form (ngSubmit)="signUp(form.value)" [formGroup]="form">
-    <p>Signup with Email and Password.</p>
+    <p>Sign Up with Email and Password.</p>
 
-    <input type="email" formControlName="email" name="email" autocomplete="current-email" placeholder="email">
-    <div *ngIf="form.get('email').invalid && form.get('email').touched">
-        <p *ngIf="form.get('email').errors.required">Email is not be empty!</p>
-        <p *ngIf="form.get('email').errors.email">Enter a valid email!</p>
+    <div class="form__group">
+        <input type="email" formControlName="email" name="email" autocomplete="current-email" placeholder="email">
+
+        <div class="form__validation" *ngIf="form.get('email').invalid && form.get('email').touched">
+            <p *ngIf="form.get('email').errors.required">Email is not be empty!</p>
+            <p *ngIf="form.get('email').errors.email">Enter a valid email!</p>
+        </div>
     </div>
 
-    <input type="password" formControlName="password" name="password" autocomplete="current-password" placeholder="password">
-    <div *ngIf="form.get('password').invalid && form.get('password').touched">
-        <p *ngIf="form.get('password').errors.required">Password is not be empty!</p>
-        <p *ngIf="form.get('password').errors.minlength">The length must be at least {{ form.get('password').errors.minlength.requiredLength }}. Current Length - {{ form.get('password').errors.minlength.actualLength }}</p>
+    <div class="form__group">
+        <input type="password" formControlName="password" name="password" autocomplete="current-password" placeholder="password">
+
+        <div class="form__validation" *ngIf="form.get('password').invalid && form.get('password').touched">
+            <p *ngIf="form.get('password').errors.required">Password is not be empty!</p>
+            <p *ngIf="form.get('password').errors.minlength">The length must be at least {{ form.get('password').errors.minlength.requiredLength }}. Current Length - {{ form.get('password').errors.minlength.actualLength }}</p>
+        </div>
     </div>
 
     <button type="submit" [disabled]="form.invalid">Sign Up</button>
 </form>
+
+<div>
+    <a routerLink="/">Already have an account? Sign In.</a>
+</div>

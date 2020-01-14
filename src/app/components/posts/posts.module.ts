@@ -11,7 +11,7 @@ import {PostFormComponent} from './post-form/post-form.component';
     imports: [
         CommonModule,
         PostsRoutingModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
     declarations: [PostsListComponent, PostComponent, PostFormComponent]
 })
