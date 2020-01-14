@@ -1,0 +1,32 @@
+<a [routerLink]="[ '/' ]">Posts List</a>
+
+<form [formGroup]="addPostForm">
+    <h2>Create New Post</h2>
+
+    <div>
+        <input type="text" name="title" placeholder="title" formControlName="title" autocomplete="current-title">
+        <div *ngIf="addPostForm.get('title').invalid && addPostForm.get('title').touched">
+            <p *ngIf="addPostForm.get('title').errors.required">Title is not be empty!</p>
+        </div>
+    </div>
+
+    <div>
+        <img [src]="previewImageURL" width="300px"  (click)="fileUploader.click()">
+    </div>
+
+    <div>
+        <label>Select file to upload</label>
+        <input type="file" accept="image/*" #fileUploader formControlName="imageUrl" (change)="showPreviewImage($event)">
+    </div>
+
+    <div>
+        <textarea name="content" formControlName="content" cols="30" rows="10" placeholder="content" autocomplete="current-content"></textarea>
+        <div *ngIf="addPostForm.get('content').invalid && addPostForm.get('content').touched">
+            <p *ngIf="addPostForm.get('content').errors.required">Content is not be empty!</p>
+        </div>
+    </div>
+
+    <div>
+        <button [disabled]="addPostForm.invalid"  (click)="addNewPost(addPostForm.value)">Add New Post</button>
+    </div>
+</form>
