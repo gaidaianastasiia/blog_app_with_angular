@@ -1,11 +1,9 @@
 import {Injectable} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {User} from '../models/user';
-import {AngularFirestore} from '@angular/fire/firestore';
-import UserCredential = firebase.auth.UserCredential;
-import {USER_ROLE} from '../constants/userRole';
 import {BehaviorSubject} from 'rxjs';
-
+import {AngularFireAuth} from '@angular/fire/auth';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {USER_ROLE} from '../constants/userRole';
+import {User} from '../models/user';
 
 @Injectable({
     providedIn: 'root'
@@ -24,41 +22,47 @@ export class AuthService {
         return this.afAuth.auth
             .createUserWithEmailAndPassword(newUser.email, newUser.password)
             .then(userCredential => {
-                this.afStore.collection('users')
-                    .add({
-                        email: userCredential.user.email,
-                        role: newUser.role
-                    })
+                this.saveUserData(userCredential.user.email, newUser.role)
                     .then(() => {
-                            this.isAdmin = newUser.role === USER_ROLE.admin;
-                            this.isAdmin$.next(this.isAdmin);
-                        }
-                    )
+                        this.setIsAdmin(newUser.role);
+                    })
             })
     }
 
     public signIn(user: User): Promise<void> {
         return this.afAuth.auth
             .signInWithEmailAndPassword(user.email, user.password)
-            .then(user => {
-                this.afStore
-                    .collection('users')
-                    .ref.where('email', '==', user.user.email)
+            .then(signInUser => {
+                this.getAuthorizedUser(signInUser)
                     .onSnapshot(snap => {
                         snap.forEach(userRef => {
-                            this.isAdmin = userRef.data().role === USER_ROLE.admin;
-                            this.isAdmin$.next(this.isAdmin);
+                            this.setIsAdmin(userRef.data().role);
                         });
                     });
             })
-            .catch(err => console.log(err));
     }
 
     public signOut(): Promise<void> {
         return this.afAuth.auth.signOut()
     }
 
-    public isUserLogin() {
+    public isUserLogin(): boolean {
         return this.afAuth.auth.currentUser !== null
+    }
+
+    private saveUserData(email, role) {
+        return this.afStore.collection('users')
+            .add({email, role});
+    }
+
+    private getAuthorizedUser(signInUser) {
+       return this.afStore
+            .collection('users')
+            .ref.where('email', '==', signInUser.user.email);
+    }
+
+    private setIsAdmin(role) {
+        this.isAdmin = role === USER_ROLE.admin;
+        this.isAdmin$.next(this.isAdmin);
     }
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 import { Observable } from 'rxjs';
-
 import {AuthService} from './auth.service';
 
 // noinspection JSAnnotator
@@ -14,9 +13,7 @@ export class AuthGuard implements CanActivate {
         private router: Router
     ){}
 
-    canActivate(
-        next: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
         if(this.authService.isUserLogin()) {
             return true;
         } else {
