@@ -1,25 +1,23 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {AngularFireStorage} from '@angular/fire/storage';
-import {PostService} from '../../services/post.service';
+import {PostService} from '../../../services/post.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+import {DEFAULT_PREVIEW_IMAGE_URL} from '../../../constants/url';
 
 @Component({
-    selector: 'app-edit-post',
-    templateUrl: './edit-post.component.html',
-    styleUrls: ['./edit-post.component.scss']
+    selector: 'app-post-form',
+    templateUrl: './post-form.component.html',
+    styleUrls: ['./post-form.component.scss']
 })
-export class EditPostComponent implements OnInit, OnDestroy {
-    editPostForm: FormGroup;
-    defaultImageUrl = '../../../assets/img/image_placeholder.jpg'
-    imgSrc = this.defaultImageUrl;
-    selectedImage: File = null;
+export class PostFormComponent implements OnInit, OnDestroy {
+    postForm: FormGroup;
+    previewImageURL = DEFAULT_PREVIEW_IMAGE_URL;
+    selectedImage = null;
     updatingPost: any;
     postDataSubscription: Subscription;
 
     constructor(
-        private storage: AngularFireStorage,
         private postService: PostService,
         private router: Router,
         private route: ActivatedRoute
@@ -27,7 +25,7 @@ export class EditPostComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.editPostForm = new FormGroup({
+        this.postForm = new FormGroup({
             title: new FormControl('', Validators.required),
             imageUrl: new FormControl(''),
             content: new FormControl('', Validators.required)
@@ -43,30 +41,43 @@ export class EditPostComponent implements OnInit, OnDestroy {
         });
     }
 
-    showPreview(event: any) {
+    onImgChange(event: any) {
         if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
-            reader.onload = (e: any) => this.imgSrc = e.target.result;
+            reader.onload = (e: any) => this.previewImageURL = e.target.result;
             reader.readAsDataURL(event.target.files[0]);
             this.selectedImage = event.target.files[0];
         } else {
-            this.imgSrc = this.defaultImageUrl;
+            this.previewImageURL = DEFAULT_PREVIEW_IMAGE_URL;
             this.selectedImage = null;
         }
     }
 
+    addNewPost(formData: FormData): void {
+        this.postService.addNewPost(formData, this.selectedImage)
+            .then(() => {
+                this.router.navigate(['/']);
+            })
+            .catch(console.error);
+    }
+
     editPost(formData: FormData) {
-        this.postService.updatePost(this.updatingPost.postKey, formData, this.selectedImage)
-                .then(() => {
-                    this.router.navigate(['/']);
-               })
-                 .catch(console.error);
+        this.postService.updatePost(
+            this.updatingPost.postKey,
+            formData,
+            this.selectedImage,
+            this.updatingPost.imageStorageName
+        )
+            .then(() => {
+                this.router.navigate(['/']);
+            })
+            .catch(console.error);
     }
 
     private fillForm(post): void {
-        this.editPostForm.get('title').setValue(post.title);
-        this.imgSrc = post.imageUrl;
-        this.editPostForm.get('content').setValue(post.content);
+        this.postForm.get('title').setValue(post.title);
+        this.previewImageURL = post.imageUrl;
+        this.postForm.get('content').setValue(post.content);
     }
 
     ngOnDestroy() {

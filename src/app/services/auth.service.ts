@@ -3,7 +3,6 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {User} from '../models/user';
 import {AngularFirestore} from '@angular/fire/firestore';
 import UserCredential = firebase.auth.UserCredential;
-import {RoleService} from './role.service';
 import {USER_ROLE} from '../constants/userRole';
 import {BehaviorSubject} from 'rxjs';
 
@@ -18,7 +17,6 @@ export class AuthService {
     constructor(
         private afAuth: AngularFireAuth,
         private afStore: AngularFirestore,
-        private roleService: RoleService
     ) {
     }
 

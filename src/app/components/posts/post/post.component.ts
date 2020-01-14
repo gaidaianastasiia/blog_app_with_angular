@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AngularFireStorage} from '@angular/fire/storage';
-import {PostService} from '../../services/post.service';
+import {PostService} from '../../../services/post.service';
 import {Subscription} from 'rxjs';
-import {AuthService} from '../../services/auth.service';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
     selector: 'app-post',
