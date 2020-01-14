@@ -17,7 +17,6 @@ export class PostService {
                 .subscribe(snapshots => {
                     resolve(snapshots)
                 });
-
         });
     }
 
@@ -58,8 +57,7 @@ export class PostService {
     }
 
     private storeImg(name, file) {
-        const ref = this.storage.ref(name);
-        return ref.put(file);
+        return this.storage.ref(name).put(file);
     }
 
     private deleteStorageImg(name) {
