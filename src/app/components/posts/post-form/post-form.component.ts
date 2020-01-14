@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {PostService} from '../../../services/post.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DEFAULT_PREVIEW_IMAGE_URL} from '../../../constants/url';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-post-form',

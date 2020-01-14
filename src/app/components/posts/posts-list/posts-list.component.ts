@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
 import {Router} from '@angular/router';
 import {PostService} from '../../../services/post.service';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-posts-list',
