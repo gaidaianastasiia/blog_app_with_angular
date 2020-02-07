@@ -1,18 +1,27 @@
-<header>
-    <a [routerLink]="[ '/' ]">Back to Posts List</a>
+<header class="header">
+  <div class="header__bar">
+    <button (click)="signOut()" class="btn btn_light btn_small">Sign Out</button>
+  </div>
 </header>
 
-<main>
-    <section class="post-details">
-        <div class="post-details__controls">
-            <button *ngIf="isAdmin" (click)="onEditBtnClick(post)">Edit Post</button>
-            <button *ngIf="isAdmin" (click)="deletePost(post.imageStorageName, post.postKey)">Delete Post</button>
-        </div>
+<section class="post">
+  <div class="post__link">
+    <a [routerLink]="[ '/' ]"><i class="material-icons">keyboard_backspace</i></a>
+  </div>
 
-        <article class="post">
-            <h3 class="post__title">{{post.title}}</h3>
-            <img class="post__img" [src]="post.imageUrl" alt="post's image" width="300">
-            <p class="post__text">{{post.content}}</p>
-        </article>
-    </section>
-</main>
+  <article class="post__container">
+    <div class="post__controls">
+      <button *ngIf="isAdmin" (click)="onEditBtnClick(post)"><i class="material-icons">edit</i></button>
+      <button *ngIf="isAdmin" (click)="deletePost(post.imageStorageName, post.postKey)"><i class="material-icons">delete_outline</i></button>
+    </div>
+
+    <h3 class="post__title">{{post.title}}</h3>
+
+    <div class="post__img">
+      <img [src]="post.imageUrl" alt="post's image">
+    </div>
+
+    <p class="post__text">{{post.content}}</p>
+  </article>
+</section>
+

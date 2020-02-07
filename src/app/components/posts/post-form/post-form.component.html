@@ -1,36 +1,46 @@
-<header>
-    <a [routerLink]="[ '/' ]">Back to Posts List</a>
+<header class="header">
+  <div class="header__bar">
+    <button (click)="signOut()" class="btn btn_light btn_small">Sign Out</button>
+  </div>
 </header>
 
-<form [formGroup]="postForm">
-    <h2 *ngIf="!updatingPost">Add Post</h2>
-    <h2 *ngIf="updatingPost">Edit Post</h2>
+<section class="postForm">
+  <div class="postForm__link">
+    <a [routerLink]="[ '/' ]"><i class="material-icons">keyboard_backspace</i></a>
+  </div>
 
-    <div class="form__group">
-        <input type="text" formControlName="title" name="title" placeholder="title" autocomplete="current-title">
+  <form [formGroup]="postForm" class="postForm__container">
+    <h2 *ngIf="!updatingPost" class="postForm__title">Add Post</h2>
+    <h2 *ngIf="updatingPost" class="postForm__title">Edit Post</h2>
 
-        <div class="form__validation" *ngIf="postForm.get('title').invalid && postForm.get('title').touched">
-            <p *ngIf="postForm.get('title').errors.required">Title is not be empty!</p>
-        </div>
+    <div class="postForm__control">
+      <input type="text" formControlName="title" name="title" placeholder="title" autocomplete="current-title">
+      <div class="postForm__validation" *ngIf="postForm.get('title').invalid && postForm.get('title').touched">
+        <p *ngIf="postForm.get('title').errors.required">Title is not be empty!</p>
+      </div>
     </div>
 
-    <div class="form__preview-image">
-        <img [src]="previewImageURL" width="300px"  (click)="fileUploader.click()">
+    <div class="postForm__preview-image">
+      <img [src]="previewImageURL" (click)="fileUploader.click()">
     </div>
 
-    <div class="form__group">
-        <label>Select file to upload</label>
-        <input type="file" formControlName="imageUrl" accept="image/*" #fileUploader (change)="onImgChange($event)">
+    <div class="postForm__file">
+      <label>Select file to upload</label>
+      <input type="file" formControlName="imageUrl" accept="image/*" #fileUploader (change)="onImgChange($event)">
     </div>
 
-    <div class="form__group">
-        <textarea name="content" formControlName="content" cols="30" rows="10" placeholder="content" autocomplete="current-content"></textarea>
-
-        <div class="form__validation" *ngIf="postForm.get('content').invalid && postForm.get('content').touched">
-            <p *ngIf="postForm.get('content').errors.required">Content is not be empty!</p>
-        </div>
+    <div class="postForm__control">
+      <textarea name="content" formControlName="content" cols="30" rows="10" placeholder="content" autocomplete="current-content"></textarea>
+      <div class="postForm__validation" *ngIf="postForm.get('content').invalid && postForm.get('content').touched">
+        <p *ngIf="postForm.get('content').errors.required">Content is not be empty!</p>
+      </div>
     </div>
 
-        <button [disabled]="postForm.invalid" *ngIf="!updatingPost" (click)="addNewPost(postForm.value)">Add New Post</button>
-        <button [disabled]="postForm.invalid" *ngIf="updatingPost" (click)="editPost(postForm.value)">Save changes</button>
-</form>
+    <div class="postForm__btn">
+      <button class="btn btn_accent" [disabled]="postForm.invalid" *ngIf="!updatingPost" (click)="addNewPost(postForm.value)">Add New Post</button>
+      <button class="btn btn_accent" [disabled]="postForm.invalid" *ngIf="updatingPost" (click)="editPost(postForm.value)">Save changes</button>
+    </div>
+  </form>
+</section>
+
+

@@ -1,27 +1,31 @@
-<form (ngSubmit)="signIn(form.value)" [formGroup]="form">
-    <p>Sign In with Email and Password.</p>
+<section class="signin">
+  <div class="signin__container">
+    <h2 class="signin__title">Login</h2>
 
-    <div class="form__group">
+    <form (ngSubmit)="signIn(form.value)" [formGroup]="form" class="signin__form">
+      <div class="signin__control">
         <input type="email" formControlName="email" name="email" placeholder="email">
-
-        <div class="form__validation" *ngIf="form.get('email').invalid && form.get('email').touched">
-            <p *ngIf="form.get('email').errors.required">Email is not be empty!</p>
-            <p *ngIf="form.get('email').errors.email">Enter a valid email!</p>
+        <div class="signin__validation" *ngIf="form.get('email').invalid && form.get('email').touched">
+          <p *ngIf="form.get('email').errors.required">Email is not be empty!</p>
+          <p *ngIf="form.get('email').errors.email">Enter a valid email!</p>
         </div>
-    </div>
+      </div>
 
-    <div class="form__group">
+      <div class="signin__control">
         <input type="password" formControlName="password" name="password" placeholder="password">
-
-        <div class="form__validation" *ngIf="form.get('password').invalid && form.get('password').touched">
-            <p *ngIf="form.get('password').errors.required">Password is not be empty!</p>
-            <p *ngIf="form.get('password').errors.minlength">The length must be at least {{ form.get('password').errors.minlength.requiredLength }}. Current Length - {{ form.get('password').errors.minlength.actualLength }}</p>
+        <div class="signin__validation" *ngIf="form.get('password').invalid && form.get('password').touched">
+          <p *ngIf="form.get('password').errors.required">Password is not be empty!</p>
+          <p *ngIf="form.get('password').errors.minlength">The length must be at least {{ form.get('password').errors.minlength.requiredLength }}. Current Length - {{ form.get('password').errors.minlength.actualLength }}</p>
         </div>
+      </div>
+
+      <div class="signin__btn">
+        <button type="submit" [disabled]="form.invalid" class="btn btn_accent">Sign In</button>
+      </div>
+    </form>
+
+    <div class="signin__link">
+      <a routerLink="./signup">No account? Create one here.</a>
     </div>
-
-    <button type="submit" [disabled]="form.invalid">Sign In</button>
-</form>
-
-<div>
-    <a routerLink="./signup">No account? Create one here.</a>
-</div>
+  </div>
+</section>

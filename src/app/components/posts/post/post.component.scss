@@ -1,0 +1,73 @@
+@import "../../../../styles/helpers/variables";
+
+.post {
+  padding: 50px 15px;
+
+  &__link {
+    margin-bottom: 15px;
+    color: $grey-color;
+
+    i {
+      color: $grey-color;
+      font-size: 38px;
+      transition: .3s ease-in-out;
+
+      &:hover {
+        color: $accent-color;
+      }
+    }
+  }
+
+  &__controls {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    margin-bottom: 30px;
+
+    button {
+      margin-left: 15px;
+    }
+
+    i {
+      color: $grey-color;
+      font-size: 25px;
+      transition: .3s ease-in-out;
+
+      &:hover {
+        color: $accent-color;
+      }
+    }
+  }
+
+  &__container {
+    position: relative;
+    padding: 30px 30px 50px;
+    background-color: $light-color;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  }
+
+  &__title {
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    color: $accent-color;
+  }
+
+  &__img {
+    max-height: 500px;
+    margin-bottom: 20px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  &__text {
+    text-align: justify;
+  }
+}

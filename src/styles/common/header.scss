@@ -1,0 +1,12 @@
+
+.header {
+  position: sticky;
+  top: 0;
+  padding: 15px;
+  background-color: $dark-color;
+
+  &__bar {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

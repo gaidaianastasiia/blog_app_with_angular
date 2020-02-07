@@ -1,27 +1,31 @@
-<form (ngSubmit)="signUp(form.value)" [formGroup]="form">
-    <p>Sign Up with Email and Password.</p>
+<section class="signup">
+  <div class="signup__container">
+    <h2 class="signup__title">Register</h2>
 
-    <div class="form__group">
+    <form (ngSubmit)="signUp(form.value)" [formGroup]="form" class="signin__form">
+      <div class="signup__control">
         <input type="email" formControlName="email" name="email" autocomplete="current-email" placeholder="email">
-
-        <div class="form__validation" *ngIf="form.get('email').invalid && form.get('email').touched">
-            <p *ngIf="form.get('email').errors.required">Email is not be empty!</p>
-            <p *ngIf="form.get('email').errors.email">Enter a valid email!</p>
+        <div class="signup__validation" *ngIf="form.get('email').invalid && form.get('email').touched">
+          <p *ngIf="form.get('email').errors.required">Email is not be empty!</p>
+          <p *ngIf="form.get('email').errors.email">Enter a valid email!</p>
         </div>
-    </div>
+      </div>
 
-    <div class="form__group">
+      <div class="signup__control">
         <input type="password" formControlName="password" name="password" autocomplete="current-password" placeholder="password">
-
-        <div class="form__validation" *ngIf="form.get('password').invalid && form.get('password').touched">
-            <p *ngIf="form.get('password').errors.required">Password is not be empty!</p>
-            <p *ngIf="form.get('password').errors.minlength">The length must be at least {{ form.get('password').errors.minlength.requiredLength }}. Current Length - {{ form.get('password').errors.minlength.actualLength }}</p>
+        <div class="signup__validation" *ngIf="form.get('password').invalid && form.get('password').touched">
+          <p *ngIf="form.get('password').errors.required">Password is not be empty!</p>
+          <p *ngIf="form.get('password').errors.minlength">The length must be at least {{ form.get('password').errors.minlength.requiredLength }}. Current Length - {{ form.get('password').errors.minlength.actualLength }}</p>
         </div>
+      </div>
+
+      <div class="signup__btn">
+        <button type="submit" [disabled]="form.invalid" class="btn btn_light">Go</button>
+      </div>
+    </form>
+
+    <div class="signup__link">
+      <a routerLink="/">Already have an account? Sign In.</a>
     </div>
-
-    <button type="submit" [disabled]="form.invalid">Sign Up</button>
-</form>
-
-<div>
-    <a routerLink="/">Already have an account? Sign In.</a>
-</div>
+  </div>
+</section>
